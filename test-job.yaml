@@ -1,0 +1,12 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: playwright-ai-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: test-container
+        image: ai-qualityops-framework:latest
+        imagePullPolicy: Never  # Yeh sabse zaroori line hai! Iska matlab hai internet pe mat dhoondhna, jo load ki hai wahi use karo.
+      restartPolicy: Never
