@@ -1,4 +1,4 @@
-name:  QualityOps Docker CI
+name: AI QualityOps Docker CI
 
 on:
   push:
@@ -18,4 +18,13 @@ jobs:
       run: docker build -t ai-qualityops-framework .
 
     - name: Run Playwright Tests inside Docker
-      run: docker run --rm ai-qualityops-framework
+      # '-v' use karke hum Docker ke andar ki report ko bahar nikal rahe hain
+      run: docker run --rm -v ${{ github.workspace }}/playwright-report:/app/playwright-report ai-qualityops-framework
+
+    - name: Save HTML Report
+      uses: actions/upload-artifact@v4
+      if: always() # Agar test fail bhi ho jaye, tab bhi humein report chahiye!
+      with:
+        name: Playwright-HTML-Report
+        path: playwright-report/
+        retention-days: 7
