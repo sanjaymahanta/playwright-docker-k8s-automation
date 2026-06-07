@@ -12,8 +12,12 @@ test('Hover Demo', async ({ page }) => {
  const copyBtn = page.locator('button:has-text("Copy Text")');
 await copyBtn.dblclick();
 
+await page.evaluate(() => {
+  window.scrollTo(0, document.body.scrollHeight);
 
 
-    await page.waitForTimeout(5000);
+});
+
+ await page.waitForTimeout(5000);
 
 });
